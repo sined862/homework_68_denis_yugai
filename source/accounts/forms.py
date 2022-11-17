@@ -1,19 +1,63 @@
 ﻿from django import forms
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import AuthenticationForm
 
 class CustomUserCreationForm(forms.ModelForm):
-    password = forms.CharField(label='Пароль', strip=False, required=True, widget=forms.PasswordInput)
+    password = forms.CharField(label='Пароль:', strip=False, required=True, widget=forms.PasswordInput)
     password_confirm = forms.CharField(
-        label='Подтвердите пароль', 
+        label='Подтвердите пароль:', 
         strip=False, 
         required=True,
         widget=forms.PasswordInput
         )
+    first_name = forms.CharField(
+        label='Имя*:',
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    username = forms.CharField(
+        label='Имя пользователя*:',
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    phone = forms.CharField(
+        label='Номер телефона*:',
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    email = forms.CharField(
+        label='Адрес электронной почты*:',
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    facebook = forms.CharField(
+        label='Ссылка на Facebook:',
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    linkedin = forms.CharField(
+        label='Ссылка на Linkedin:',
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    avatar = forms.CharField(
+        label='Фотография:',
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    password = forms.CharField(
+        label='Пароль*:',
+        widget=forms.PasswordInput(attrs={'class': 'form-control rounded-1'})
+    )
+    password_confirm = forms.CharField(
+        label='Подтверждение пароля*:',
+        widget=forms.PasswordInput(attrs={'class': 'form-control rounded-1'})
+    )
 
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'username', 'phone', 'email', 'facebook', 'linkedin', 'avatar', 'password', 'password_confirm', 'is_employer')
+        fields = ('is_employer', 'username', 'first_name', 'phone', 'email', 'facebook', 'linkedin', 'avatar', 'password', 'password_confirm')
 
     def clean(self):
         cleaned_data = super().clean()
@@ -29,8 +73,13 @@ class CustomUserCreationForm(forms.ModelForm):
             user.save()
         return user
 
+class LoginUserForm(AuthenticationForm):
+    username = forms.CharField(
+        label='Имя пользователя:',
+        widget=forms.TextInput(attrs={'class': 'form-control rounded-1'})
+    )
+    password = forms.CharField(
+        label='Пароль:',
+        widget=forms.PasswordInput(attrs={'class': 'form-control rounded-1'})
+    )
 
-class LoginForm(forms.Form):
-    username = forms.CharField(required=True, label='Логин')
-    password = forms.CharField(required=True, label='Пароль', widget=forms.PasswordInput)
-    next = forms.CharField(required=False, widget=forms.HiddenInput)

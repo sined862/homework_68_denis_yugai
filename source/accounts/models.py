@@ -39,6 +39,7 @@ class Account(AbstractUser):
         verbose_name='Аватар'
     )
     is_employer = models.BooleanField(
+        verbose_name='Работодатель:',
         null=False,
         blank=False
     )
