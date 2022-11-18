@@ -112,7 +112,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
 
 LOGIN_REDIRECT_URL = 'profile'
-LOGOUT_REDIRECT_URL = 'profile'
+LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
 
 # Default primary key field type
