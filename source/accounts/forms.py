@@ -33,18 +33,17 @@ class CustomUserCreationForm(forms.ModelForm):
     )
     facebook = forms.CharField(
         label='Ссылка на Facebook:',
-        required=True,
+        required=False,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     linkedin = forms.CharField(
         label='Ссылка на Linkedin:',
-        required=True,
+        required=False,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
-    avatar = forms.CharField(
+    avatar = forms.ImageField(
         label='Фотография:',
-        required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        required=False
     )
     password = forms.CharField(
         label='Пароль*:',
@@ -58,6 +57,7 @@ class CustomUserCreationForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ('is_employer', 'username', 'first_name', 'phone', 'email', 'facebook', 'linkedin', 'avatar', 'password', 'password_confirm')
+
 
     def clean(self):
         cleaned_data = super().clean()
