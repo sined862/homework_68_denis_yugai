@@ -1,5 +1,7 @@
 ﻿{% extends 'accounts/base.html' %}
 
+{% load static%}
+
 {% block title %}
     {{ title }}
 {% endblock %}
@@ -8,12 +10,16 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
-            <div class="border rounded-1 rounded-bottom mt-5">
-                <h4 class="text-center border-bottom p-3 bg-dark bg-gradient text-white"><span class="me-2"><img style="width:6%;" src="https://play-lh.googleusercontent.com/YpAV7Q-ZJhI5tzFk_wEX-7-x2BydtnCtFTVUrmq0zAO6jLCLA4nNcfem3p_Pyowg9w" alt="logo"></span>Регистрация</h4>
+            <div class="border rounded-1 rounded-bottom my-5 block">
+                <h4 class="text-center border-bottom p-3 bg-dark bg-gradient text-white">
+                    <span class="me-2">
+                        <img class="logo-hh" src="{% static 'accounts/img/logo-hh.png' %}" alt="logo">
+                    </span> Регистрация пользователя
+                </h4>
                 <div class="row">
                     <div class="form-error text-center text-danger fw-light">{{ form.non_field_errors }}</div>
                     <div class="col-lg-9 mx-auto mt-4">
-                        <form class="text-center" action="{% url 'register' %}" method="POST">
+                        <form class="text-center" action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %} 
                             <div class="input-group">
                                 {% for f in form %}
@@ -30,14 +36,6 @@
         </div>
     </div>
 </div>
-<script>
-    console.log($('#id_is_employer'))
-    $('#id_is_employer').click(function(){
-        if ($(this).is(':checked')){
-            $('strong')[2].innerText = 'Наименование компании:*'
-        } else {
-            $('strong')[2].innerText = 'Имя:*'
-        }
-    });    
-</script>
+<script src="{% static 'accounts/js/register.js' %}"></script>
 {% endblock %}
+
