@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
 
-</body>
-</html>
+
+{% block content %}
+    <p>Название: {{ job.title }}</p>
+    <p>Описание: {{ job.description }}</p>
+    <p>Указание дохода: {{ job.salary }}</p>
+{% endblock %}
