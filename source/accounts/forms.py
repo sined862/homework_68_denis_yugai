@@ -17,7 +17,7 @@ class CustomUserCreationForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     username = forms.CharField(
-        label='Имя пользователя*:',
+        label='Логин*:',
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
@@ -28,6 +28,11 @@ class CustomUserCreationForm(forms.ModelForm):
     )
     email = forms.CharField(
         label='Адрес электронной почты*:',
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    telegram = forms.CharField(
+        label='Ссылка на Telegram:',
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
@@ -56,7 +61,7 @@ class CustomUserCreationForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('is_employer', 'username', 'first_name', 'phone', 'email', 'facebook', 'linkedin', 'avatar', 'password', 'password_confirm')
+        fields = ('is_employer', 'username', 'first_name', 'phone', 'email', 'telegram', 'facebook', 'linkedin', 'avatar', 'password', 'password_confirm')
 
 
     def clean(self):
@@ -73,9 +78,11 @@ class CustomUserCreationForm(forms.ModelForm):
             user.save()
         return user
 
+
+
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(
-        label='Имя пользователя:',
+        label='Логин:',
         widget=forms.TextInput(attrs={'class': 'form-control rounded-1'})
     )
     password = forms.CharField(
