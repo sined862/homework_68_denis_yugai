@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}
 
-</body>
-</html>
+{% endblock %}
+
+{% block menu %}
+<li>
+    <a href="{% url 'job_add' %}">Add vacancy</a>
+</li>
+{% endblock %}
+
+{% block content %}
+    <h1>Do you want to delete this vacancy?</h1>
+    <p>Title: {{ job.title }}</p>
+    <p>Description: {{ job.description }}</p>
+    <form action="{% url 'confirm_delete' job.pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Yes">
+        <a href="{% url 'index' %}">No</a>
+    </form>
+{% endblock %}

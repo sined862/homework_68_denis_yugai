@@ -5,7 +5,7 @@
 {% block content %}
     <form action="{% url 'job_add' %}" method="POST">
         <div class="form">
-        {% include 'partial/job_form_2.html' with button_text='Create' %}
+        {% include 'employer/partial/job_form_2.html' with button_text='Create' %}
     </div>
     </form>
 {% endblock %}
