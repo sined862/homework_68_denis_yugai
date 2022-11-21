@@ -2,8 +2,8 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 
 from django.urls import reverse, reverse_lazy
 
-from source.employer.forms import JobForm
-from source.employer.models import Job
+from employer.forms import JobForm
+from employer.models import Job
 
 
 class IndexView(ListView):
