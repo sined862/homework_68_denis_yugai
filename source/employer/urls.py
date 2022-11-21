@@ -1,6 +1,6 @@
 from django.urls import path
 
-from source.employer.views import IndexView, JobCreate, JobUpdateView, JobView, JobDeleteView
+from employer.views import IndexView, JobCreate, JobUpdateView, JobDeleteView, JobView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),

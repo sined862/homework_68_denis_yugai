@@ -1,6 +1,6 @@
 from django import forms
 
-from source.employer.models import Job
+from employer.models import Job
 
 
 class JobForm(forms.ModelForm):

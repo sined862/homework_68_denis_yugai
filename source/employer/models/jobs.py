@@ -1,6 +1,16 @@
 from django.db import models
 
 from django.utils import timezone
+from django.db.models import TextChoices
+
+
+class StatusChoices(TextChoices):
+    CHOICE = 'ВЫБРАТЬ', 'Выбрать'
+    IT = 'IT', 'IT'
+    FINANCE = 'ФИНАНСЫ', 'Финансы'
+    MARKETING = 'МАРКЕТИНГ', 'Маркетинг'
+    LAWYER = 'ЮРИСТ', 'Юрист'
+    ENGINEER = 'ИНЖЕНЕР', 'Инженер'
 
 
 class Job(models.Model):
@@ -11,16 +21,9 @@ class Job(models.Model):
     created_at = models.DateTimeField(verbose_name='Date created', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Date updated', auto_now=True)
     deleted_at = models.DateTimeField(verbose_name='Date deleted', null=True, default=None)
-    categories = models.ManyToManyField(
-        to='employer.Category',
-        related_name='jobs',
-        blank=True
-    )
-    experiences = models.ManyToManyField(
-        to='employer.Experience',
-        related_name='jobs',
-        blank=True
-    )
+    categories = models.CharField(verbose_name='Categories', choices=StatusChoices.choices, max_length=200,
+                                  default=StatusChoices.CHOICE)
+    experiences = models.CharField(verbose_name='Experiences', max_length=200, null=False, blank=False, default='Нет опыта')
 
     def __str__(self):
         return f'{self.title} - {self.description}'
