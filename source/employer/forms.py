@@ -7,4 +7,4 @@ class JobForm(forms.ModelForm):
 
     class Meta:
         model = Job
-        fields = ('title', 'description', 'salary', 'categories', 'experiences')
+        fields = ('title', 'description', 'salary', 'categories', 'experiences', 'is_deleted')

@@ -1,9 +1,9 @@
 ﻿from django.urls import path
-from applicant.views import ProfileApplicantView, ProfileDeleteView, CustomPasswordChangeView, ResumeCreationView, ResumesView, ResumeDetailView, ApplicantIndexView
+from applicant.views import ProfileApplicantView, ProfileDeleteView, CustomPasswordChangeView, ResumeCreationView, ResumesView, ResumeDetailView, IndexApplicantView
 
 
 urlpatterns = [
-    path('', ApplicantIndexView.as_view(), name='index_applicant'),
+    path('', IndexApplicantView.as_view(), name='index_applicant'),
     path('profile/<int:pk>', ProfileApplicantView.as_view(), name='profile_applicant'),
     path('profile/<int:pk>/del', ProfileDeleteView.as_view(), name='profile_del'),
     path('password-change/', CustomPasswordChangeView.as_view(), name='password_change'),

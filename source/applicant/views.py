@@ -7,7 +7,7 @@ from django.contrib.auth.views import PasswordChangeView
 from applicant.models import Resume, WorkExperience, Education
 from applicant.forms import work_experience_formset, ResumeForm, education_formset, WorkForm
 from accounts.models import Account
-from django.forms import formset_factory
+from employer.models import Job
 
 # def index(request):
 #     return render(request, 'applicant/index.html')
@@ -96,3 +96,20 @@ class ResumesView(LoginRequiredMixin, ListView):
 class ResumeDetailView(DetailView):
     template_view = 'applicant/resume_detail.html'
     model = Resume
+
+
+class IndexApplicantView(ListView):
+    template_name = 'applicant/index.html'
+    model = Job
+    context_object_name = 'jobs'
+
+    def get_queryset(self):
+        return Job.objects.filter(is_deleted=True).order_by('-updated_at')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if Resume.objects.filter(author=self.request.user.pk).exists():
+            context['is_resume'] = True
+        else:
+            context['is_resume'] = False
+        return context

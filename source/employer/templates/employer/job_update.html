@@ -1,11 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'employer/base.html' %}
 {% block title %}
     Обновить вакансию
 {% endblock %}
 {% block content %}
-    <form action="{% url 'job_update' job.pk %}" method="POST">
-        <div class="form">
-            {% include 'partial/article_form_2.html' with button_text='Change' %}
-        </div>
-    </form>
+<div class="row block">
+    <div class="col-lg-9 mx-auto mt-4 mb-5">
+        <h2 class="text-start ms-2 my-5">Ваша вакансия</h2>
+        <form action="{% url 'job_update' job.pk %}" method="POST">
+            <div class="form">
+            {% include 'employer/partial/job_form_2.html' with button_text='Сохранить' %}
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
