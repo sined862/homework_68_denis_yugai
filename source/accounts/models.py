@@ -9,7 +9,7 @@ class Account(AbstractUser):
         blank=False
     )
     phone = models.CharField(
-        max_length=10,
+        max_length=20,
         verbose_name='Номер телефона',
         null=False,
         blank=False

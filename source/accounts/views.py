@@ -10,6 +10,11 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+
+def is_autorization(request, *args, **kwargs):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
 class RegisterView(CreateView):
     template_name = 'accounts/register.html'
     form_class = CustomUserCreationForm
