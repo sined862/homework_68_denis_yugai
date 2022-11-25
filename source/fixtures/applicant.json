@@ -1,0 +1,198 @@
+[
+{
+  "model": "applicant.categoryjob",
+  "pk": 1,
+  "fields": {
+    "title": "Строительство"
+  }
+},
+{
+  "model": "applicant.categoryjob",
+  "pk": 2,
+  "fields": {
+    "title": "Бухгалтерия"
+  }
+},
+{
+  "model": "applicant.categoryjob",
+  "pk": 3,
+  "fields": {
+    "title": "Бизнес"
+  }
+},
+{
+  "model": "applicant.categoryjob",
+  "pk": 4,
+  "fields": {
+    "title": "Информационные технологии"
+  }
+},
+{
+  "model": "applicant.resume",
+  "pk": 1,
+  "fields": {
+    "title": "Программист",
+    "category": 4,
+    "salary": 500000,
+    "author": 1,
+    "is_published": true,
+    "created_at": "2022-11-25T04:47:23.607Z",
+    "updated_at": "2022-11-25T04:47:23.607Z"
+  }
+},
+{
+  "model": "applicant.resume",
+  "pk": 2,
+  "fields": {
+    "title": "Каменщик",
+    "category": 1,
+    "salary": 300000,
+    "author": 1,
+    "is_published": true,
+    "created_at": "2022-11-25T04:50:09.050Z",
+    "updated_at": "2022-11-25T04:50:09.050Z"
+  }
+},
+{
+  "model": "applicant.resume",
+  "pk": 3,
+  "fields": {
+    "title": "IT",
+    "category": 4,
+    "salary": 4444,
+    "author": 5,
+    "is_published": true,
+    "created_at": "2022-11-25T15:54:32.930Z",
+    "updated_at": "2022-11-25T15:54:32.930Z"
+  }
+},
+{
+  "model": "applicant.workexperience",
+  "pk": 1,
+  "fields": {
+    "begin_date": "2022-11-02",
+    "end_date": "2022-11-02",
+    "position": "Программист",
+    "organization": "AS",
+    "responsibility": "Программист",
+    "resume": 1
+  }
+},
+{
+  "model": "applicant.workexperience",
+  "pk": 2,
+  "fields": {
+    "begin_date": "2022-11-01",
+    "end_date": "2022-11-02",
+    "position": "Каменщик",
+    "organization": "Дельма",
+    "responsibility": "Каменщик",
+    "resume": 2
+  }
+},
+{
+  "model": "applicant.workexperience",
+  "pk": 3,
+  "fields": {
+    "begin_date": "2022-11-04",
+    "end_date": "2022-11-09",
+    "position": "Стажер",
+    "organization": "Алина",
+    "responsibility": "Стажер",
+    "resume": 2
+  }
+},
+{
+  "model": "applicant.workexperience",
+  "pk": 4,
+  "fields": {
+    "begin_date": "2022-11-03",
+    "end_date": "2022-11-01",
+    "position": "Программист 1",
+    "organization": "AS",
+    "responsibility": "asdasd",
+    "resume": 3
+  }
+},
+{
+  "model": "applicant.response",
+  "pk": 1,
+  "fields": {
+    "job": 1,
+    "author": 1,
+    "resume": 1
+  }
+},
+{
+  "model": "applicant.response",
+  "pk": 2,
+  "fields": {
+    "job": 1,
+    "author": 1,
+    "resume": 1
+  }
+},
+{
+  "model": "applicant.response",
+  "pk": 3,
+  "fields": {
+    "job": 1,
+    "author": 1,
+    "resume": 2
+  }
+},
+{
+  "model": "applicant.response",
+  "pk": 4,
+  "fields": {
+    "job": 6,
+    "author": 1,
+    "resume": 2
+  }
+},
+{
+  "model": "applicant.response",
+  "pk": 5,
+  "fields": {
+    "job": 3,
+    "author": 1,
+    "resume": 2
+  }
+},
+{
+  "model": "applicant.chat",
+  "pk": 1,
+  "fields": {
+    "response": 2,
+    "author": 1,
+    "text": "asdasdasd"
+  }
+},
+{
+  "model": "applicant.chat",
+  "pk": 2,
+  "fields": {
+    "response": 3,
+    "author": 1,
+    "text": "asdasdqweqweqwasd"
+  }
+},
+{
+  "model": "applicant.chat",
+  "pk": 3,
+  "fields": {
+    "response": 4,
+    "author": 1,
+    "text": "dfgdfgdfg"
+  }
+},
+{
+  "model": "applicant.chat",
+  "pk": 4,
+  "fields": {
+    "response": 5,
+    "author": 1,
+    "text": "sdfwerwer"
+  }
+}
+]

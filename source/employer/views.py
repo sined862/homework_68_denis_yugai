@@ -18,18 +18,18 @@ class ProfileEmployertView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('profile_applicant', kwargs={'pk': self.request.user.id})
 
-class ProfileDeleteView(DeleteView):
+class ProfileDeleteView(LoginRequiredMixin, DeleteView):
     model = get_user_model()
     success_url = reverse_lazy('login')
 
 
-class IndexView(ListView):
+class IndexView(LoginRequiredMixin, ListView):
     template_name = 'employer/index.html'
     model = Job
     context_object_name = 'jobs'
 
 
-class JobsView(ListView):
+class JobsView(LoginRequiredMixin, ListView):
     template_name = 'employer/jobs.html'
     model = Job
     context_object_name = 'jobs'
@@ -38,7 +38,7 @@ class JobsView(ListView):
         return Job.objects.filter(author=self.request.user).order_by('-updated_at').values('title', 'updated_at', 'salary', 'pk')
 
 
-class JobCreate(CreateView):
+class JobCreate(LoginRequiredMixin, CreateView):
     template_name = 'employer/job_create.html'
     form_class = JobForm
     model = Job
@@ -56,12 +56,12 @@ class JobCreate(CreateView):
         return reverse('job_detail', kwargs={'pk': self.object.pk})
 
 
-class JobView(DetailView):
+class JobView(LoginRequiredMixin, DetailView):
     template_name = 'employer/job.html'
     model = Job
 
 
-class JobUpdateView(UpdateView):
+class JobUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'employer/job_update.html'
     form_class = JobForm
     model = Job
@@ -71,13 +71,13 @@ class JobUpdateView(UpdateView):
         return reverse('job_detail', kwargs={'pk': self.object.pk})
 
 
-class JobDeleteView(DeleteView):
+class JobDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'employer/job_confirm_delete.html'
     model = Job
     success_url = reverse_lazy('index')
 
 
-class QuickUpdateView(View):
+class QuickUpdateView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         job = get_object_or_404(Job, pk=kwargs['pk'])
         job.save()

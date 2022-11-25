@@ -22,7 +22,7 @@ class ProfileApplicantView(LoginRequiredMixin, UpdateView):
 
 
 
-class ProfileDeleteView(DeleteView):
+class ProfileDeleteView(LoginRequiredMixin, DeleteView):
     model = get_user_model()
     success_url = reverse_lazy('login')
 
@@ -32,7 +32,7 @@ class CustomPasswordChangeView(PasswordChangeView):
     template_name = "applicant/password_change_form.html"
 
 
-class ResumeCreationView(View):
+class ResumeCreationView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         form_resume = ResumeForm
         form_work = work_experience_formset(queryset=WorkExperience.objects.none())
@@ -86,12 +86,12 @@ class ResumesView(LoginRequiredMixin, ListView):
 
 
 
-class ResumeDetailView(DetailView):
+class ResumeDetailView(LoginRequiredMixin, DetailView):
     template_view = 'applicant/resume_detail.html'
     model = Resume
 
 
-class IndexApplicantView(ListView):
+class IndexApplicantView(LoginRequiredMixin, ListView):
     template_name = 'applicant/index.html'
     model = Job
     context_object_name = 'jobs'
@@ -108,13 +108,13 @@ class IndexApplicantView(ListView):
         return context
 
 
-class EmployerDetailView(DetailView):
+class EmployerDetailView(LoginRequiredMixin, DetailView):
     template_name = 'applicant/employer_detail.html'
     model = get_user_model()
     context_object_name = 'user_obj'
 
 
-class JobDetailView(DetailView):
+class JobDetailView(LoginRequiredMixin, DetailView):
     template_name = 'applicant/job_detail.html'
     model = Job
     context_object_name = 'job'
@@ -145,7 +145,7 @@ class JobDetailView(DetailView):
             return redirect('job_detal', pk=kwargs['pk'])
 
 
-class ResponsesView(ListView):
+class ResponsesView(LoginRequiredMixin, ListView):
     template_name = 'applicant/responses.html'
     context_object_name = 'responses'
     model = Account
@@ -154,7 +154,7 @@ class ResponsesView(ListView):
         return Account.objects.get(pk=self.request.user.pk)
 
 
-class ResponseApplicantDetailView(DetailView):
+class ResponseApplicantDetailView(LoginRequiredMixin, DetailView):
     template_name = 'applicant/response_detail.html'
     model = Response
     context_object_name = 'response'
