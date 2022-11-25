@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, View, DeleteView, UpdateView, CreateView, ListView
+from django.views.generic import DetailView, View, DeleteView, UpdateView, CreateView, ListView, TemplateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import PasswordChangeView
 from applicant.models import Resume, WorkExperience, Education
@@ -9,8 +9,12 @@ from applicant.forms import work_experience_formset, ResumeForm, education_forms
 from accounts.models import Account
 from django.forms import formset_factory
 
-def index(request):
-    return render(request, 'applicant/index.html')
+# def index(request):
+#     return render(request, 'applicant/index.html')
+
+
+class ApplicantIndexView(TemplateView):
+    template_name = 'applicant/index.html'
 
 
 

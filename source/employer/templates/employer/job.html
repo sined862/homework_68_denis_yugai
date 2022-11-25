@@ -1,10 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'employer/base.html' %}
 {% block title %}
 {% endblock %}
 
 
 {% block content %}
-    <p>Название: {{ job.title }}</p>
-    <p>Описание: {{ job.description }}</p>
-    <p>Указание дохода: {{ job.salary }}</p>
+<div class="block">
+    <h2 class="text-center pt-5">Вакансия "{{ job.title }}"</h2>
+    <div class="row mt-5 pb-5">
+        <div class="col-lg-10 mx-auto">   
+                <div class="text-start ps-5">          
+                    <p><strong>Указание дохода: </strong>{{ job.salary }}</p> 
+                    <p><strong>Заработная плата: </strong>{{ job.salary }}</p> 
+                    <p><strong>Требуемый опыт работы:</strong> {{ job.experiences }}</p>
+                    <p><strong>Описание:</strong></p>
+                    <p>{{ job.description|linebreaks }}</p>
+                </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

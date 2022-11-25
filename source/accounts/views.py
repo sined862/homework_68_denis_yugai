@@ -14,6 +14,13 @@ def logout_view(request):
 def is_autorization(request, *args, **kwargs):
     if not request.user.is_authenticated:
         return redirect('login')
+    else:
+        if request.user.is_employer:
+            return redirect('index')
+        else:
+            return redirect('index_applicant')
+
+
 
 class RegisterView(CreateView):
     template_name = 'accounts/register.html'
@@ -41,7 +48,7 @@ class LoginUserView(LoginView):
 class Profile(View):
     def get(self, *args, **kwargs):
         if self.request.user.is_employer:
-            return redirect ('index_employer')
+            return redirect ('index')
         else:
             return redirect ('index_applicant')
 

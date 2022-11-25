@@ -1,11 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'employer/base.html' %}
 {% block title %}
     Создать вакансию
 {% endblock %}
 {% block content %}
-    <form action="{% url 'job_add' %}" method="POST">
-        <div class="form">
-        {% include 'partial/job_form_2.html' with button_text='Create' %}
+<div class="row block">
+    <div class="col-lg-9 mx-auto mt-4 mb-5">
+        <h2 class="text-start ms-2 my-5">Ваша вакансия</h2>
+        <form action="{% url 'job_add' %}" method="POST">
+            <div class="form">
+            {% include 'employer/partial/job_form_2.html' with button_text='Создать' %}
+            </div>
+        </form>
     </div>
-    </form>
+</div>
 {% endblock %}

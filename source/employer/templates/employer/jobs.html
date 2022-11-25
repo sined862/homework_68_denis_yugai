@@ -1,0 +1,39 @@
+﻿{% extends 'employer/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row block">
+        <div class="col-lg-10 mx-auto mb-5">
+            <h2 class="text-start my-5">Мои вакансии</h2>
+            {% for job in jobs %}
+            <div class="card text-center mb-3">
+                <div class="card-header bg-success p-2" style="--bs-bg-opacity: .2;">
+                  <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Обновить</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Редактировать</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-danger" href="">Удалить</a>
+                    </li>
+                  </ul>
+                </div>
+                <a class="text-decoration-none text-black" href="{% url 'job_detail' job.pk %}">
+                <div class="card-body">        
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 block">
+                        <div><h5 class="card-title text-start ms-5">{{ job.title }}</h5></div>
+                        <div><p class="card-text">Дата обновления: {{ job.updated_at }}</p></div>
+                        <div>З/П: {{ job.salary }}</div>
+                    </div> 
+                </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
