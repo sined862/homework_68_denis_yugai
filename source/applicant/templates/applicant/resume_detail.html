@@ -1,0 +1,88 @@
+﻿{% extends 'applicant/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="block">
+    <h2 class="text-center pt-5">Резюме "{{ object.title }}"</h2>
+    <h3 class="m-5">Основная информация</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2">
+        <div class="text-center">
+            {% if object.author.avatar %}
+            <p><img class="avatar" src="{{ object.author.avatar.url }}" alt="photo"></p>
+            {% else %}
+            <p><img class="avatar" src="{% static 'applicant/img/no-photo.png' %}" alt="photo"></p>
+            {% endif %}
+        </div>
+        <div class="text-left">
+            <p><strong class="me-3">Имя:</strong>{{ object.author.first_name }}</p>
+            <p><strong class="me-3">Номер телефона:</strong>{{ object.author.phone }}</p>
+            <p><strong class="me-3">Адрес электронной почты:</strong>{{ object.author.email }}</p>
+            <p><strong class="me-3">Telegram:</strong>{{ object.author.telegram }}</p>
+            {% if user_obj.telegram %}
+            <p><strong class="me-3">Facebook:</strong>{{ object.author.facebook }}</p>
+            {% endif %}
+            {% if user_obj.telegram %}
+            <p><strong class="me-3">Linkedin:</strong>{{ object.author.linkedin }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 mt-5">
+        <div class="text-right">
+            <p class="text-end me-5"><strong>КАТЕГОРИЯ ВАКАНСИИ</strong></p>
+            <p class="text-end me-5"><strong>ОЖИДАЕМАЯ ЗАРАБОТНАЯ ПЛАТА</strong></p>
+        </div>
+        <div class="text-left">
+            <p class="text-start">{{ object.category }}</p>
+            <p class="text-start">{{ object.salary }} тг.</p>
+        </div>
+    </div>
+    <h3 class="m-5">Опыт работы</h3>
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            {% for work in object.work_experiences.all %}
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 pb-5">
+                <div class="text-start ps-5">
+                    <p><strong>Начало работы:</strong></p> 
+                    <p><strong>Конец работы:</strong></p> 
+                    <p><strong>Должность:</strong></p>
+                    <p><strong>Организация:</strong></p>
+                    <p><strong>Обязанности:</strong></p>
+                </div>
+                <div class="text-start">
+                    <p>{{ work.begin_date }}</p>
+                    <p>{{ work.end_date }}</p>
+                    <p>{{ work.position }}</p>
+                    <p>{{ work.organization }}</p>
+                    <p>{{ work.responsibility }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% if object.educations.all %}
+    <h3 class="m-5">Образование</h3>
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            {% for work in object.educations.all %}
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 pb-5">
+                <div class="text-start ps-5">
+                    <p><strong>Навание учреждения:</strong></p> 
+                    <p><strong>Факультет:</strong></p> 
+                    <p><strong>Специальность:</strong></p>
+                    <p><strong>Дата окончания:</strong></p>
+                </div>
+                <div class="text-start">
+                    <p>{{ education.title }}</p>
+                    <p>{{ education.faculty }}</p>
+                    <p>{{ education.speciality }}</p>
+                    <p>{{ education.end_date_eductaion }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+﻿{% extends 'applicant/base.html' %}
+
+{% load static %}
+
+{% block title %}Создать резюме{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row block">
+        <div class="col-lg-9 mx-auto mt-4">
+            <h2 class="text-start ms-2 my-5">Основная информация</h2>
+            <form id="form-container" class="text-center" action="" method="POST">
+                {% csrf_token %} 
+                <div class="form-error text-center text-danger fw-light">{{ form_resume.non_field_errors }}</div>
+                <div class="input-group">
+                    {% for f in form_resume %}
+                    <p class="text-start mb-2 mx-2 fw-light"><strong>{{ f.label }}</strong></p>
+                    <p class="text-start w-100 mx-2"> {{ f }}</p>
+                    <div class="form-error">{{ f.errors }}</div>
+                    {% endfor %}
+                </div>
+                <h2 class="text-start ms-2 my-5">Опыт работы</h2>
+                <p class="text-start ms-2 mt-2 mb-2"><input id="btn-show-work" class="btn btn-secondary bg-gradient rounded-1 px-4" type="button" value="Показать опыт работы"></p>
+                {{form_work.management_form}}
+                <div id="work-form" class="input-group work-form mb-5">
+                    {% for form in form_work %}
+                    <div class="work">
+                        {{form.as_p}}
+                    </div>
+                    {% endfor %} 
+                </div>
+                <button class="btn btn-secondary bg-gradient rounded-1 px-4" id="add-form" type="button">Добавить место работы</button>
+                <input id="btn-hidden-work" class="ms-2 btn btn-danger bg-gradient rounded-1 px-4" type="button" value="Убрать опыт работы">
+                <h2 class="text-start ms-2 my-5">Образование</h2>
+                <div id="work-form-education" class="input-group mb-5">
+                    {% for form in form_education %}
+                    <div class="education w-100">
+                        {{form.as_p}}
+                    </div>
+                    {% endfor %} 
+                </div>  
+                <button class="btn btn-secondary bg-gradient rounded-1 px-4" id="add-form-education" type="button">Добавить образование</button>    
+                <p class="text-center mt-2 mb-5"><input class="btn btn-primary bg-gradient rounded-1 px-4" type="submit" value="Сохранить"></p>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $('#id_is_published').addClass('form-control');
+    $('#id_title').addClass('form-control');
+    document.getElementById('btn-show-work').hidden = true;
+    document.getElementById('btn-show-work').onclick = function() {
+        document.getElementById('work-form').hidden = false;
+        document.getElementById('btn-hidden-work').hidden = false;
+        document.getElementById('btn-show-work').hidden = true;
+        document.getElementById('add-form').hidden = false;
+    }
+    document.getElementById('btn-hidden-work').onclick = function() {
+        document.getElementById('work-form').hidden = true;
+        document.getElementById('btn-show-work').hidden = false;
+        document.getElementById('btn-hidden-work').hidden = true;
+        document.getElementById('add-form').hidden = true;
+    }
+    $('.work input')[0].className = 'text-start w-100 form-control'
+    $('.work p')[0].className = 'text-start mb-2 mx-2 fw-light'
+    $('.work input')[0].attributes[0].nodeValue = 'date'
+    $('.work input')[1].className = 'text-start w-100 form-control'
+    $('.work p')[1].className = 'text-start mb-2 mx-2 fw-light'
+    $('.work input')[1].attributes[0].nodeValue = 'date'
+    $('.work input')[2].className = 'text-start w-100 form-control'
+    $('.work p')[2].className = 'text-start mb-2 mx-2 fw-light'
+    $('.work input')[3].className = 'text-start w-100 form-control'
+    $('.work p')[3].className = 'text-start mb-2 mx-2 fw-light'
+    $('.work p')[4].className = 'text-start mb-2 mx-2 fw-light'
+    $('.work textarea').addClass('form-control')
+    $('.work textarea')[0].attributes[1].value = 60
+    $('.work textarea')[0].attributes[2].value = 5
+
+    $('.education input')[0].className = 'text-start w-100 form-control'
+    $('.education p')[0].className = 'text-start mb-2 mx-2 fw-light'
+    $('.education input')[1].className = 'text-start w-100 form-control'
+    $('.education p')[1].className = 'text-start mb-2 mx-2 fw-light'
+    $('.education input')[2].className = 'text-start w-100 form-control'
+    $('.education p')[2].className = 'text-start mb-2 mx-2 fw-light'
+    $('.education input')[3].className = 'text-start w-100 form-control'
+    $('.education p')[3].className = 'text-start mb-2 mx-2 fw-light'
+    $('.education input')[3].attributes[0].nodeValue = 'date'
+    console.log($('.work textarea')[0].attributes[2].value)
+
+    let workForm = document.querySelectorAll("#work-form")
+    let container = document.querySelector("#form-container")
+    let addButton = document.querySelector("#add-form")
+    let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+    let formNum = workForm.length-1
+
+    addButton.addEventListener('click', addForm)
+    function addForm(e){
+        e.preventDefault()
+
+        let newForm = workForm[0].cloneNode(true)
+        let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+        formNum++
+        newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+        container.insertBefore(newForm, addButton)
+            
+        totalForms.setAttribute('value', `${formNum+1}`)
+        console.log(formNum)
+    }
+    let educationForm = document.querySelectorAll("#work-form-education")
+    let addButtonEducation = document.querySelector("#add-form-education")
+    let totalFormsEducation = document.querySelector("#id_form-TOTAL_FORMS")
+    let formNumEducation = educationForm.length
+    console.log(educationForm)
+    addButtonEducation.addEventListener('click', addFormEducation)
+    function addFormEducation(e){
+        e.preventDefault()
+
+        let newForm = educationForm[0].cloneNode(true)
+        let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+        formNumEducation++
+        newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNumEducation}-`)
+        container.insertBefore(newForm, addButtonEducation)
+            
+        totalFormsEducation.setAttribute('value', `${formNumEducation+1}`)
+        
+    }
+</script>
+<script src="{% static 'applicant/js/resume_add.js' %}"></script> 
+{% endblock %}
