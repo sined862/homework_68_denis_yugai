@@ -4,13 +4,6 @@ from django.utils import timezone
 from django.db.models import TextChoices
 
 
-# class StatusChoices(TextChoices):
-#     CHOICE = 'ВЫБРАТЬ', 'Выбрать'
-#     IT = 'IT', 'IT'
-#     FINANCE = 'ФИНАНСЫ', 'Финансы'
-#     MARKETING = 'МАРКЕТИНГ', 'Маркетинг'
-#     LAWYER = 'ЮРИСТ', 'Юрист'
-#     ENGINEER = 'ИНЖЕНЕР', 'Инженер'
 
 
 class Job(models.Model):

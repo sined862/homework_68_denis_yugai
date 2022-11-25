@@ -1,0 +1,32 @@
+﻿{% extends 'applicant/base.html' %}
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+<div class="block">
+    <h2 class="text-center pt-5">Отклик на вакансию "{{ response.job.title }}"</h2>
+    <div class="row mt-5 pb-5">
+        <div class="col-lg-8 mx-auto">   
+                <div class="text-start ps-5">          
+                    <p><strong>Заработная плата: </strong>{{ response.job.salary }}</p> 
+                    <p><strong>Требуемый опыт работы:</strong> {{ response.job.experiences }}</p>
+                    <p><strong>Описание:</strong></p>
+                    <p>{{ response.job.description|linebreaks }}</p>
+                    <p><h5>Чат с работодателем:</h5></p>
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 block">
+                        {% for chat in response.chats.all %}
+                        <div>
+                            <p><strong>{{ chat.author }}</strong></p>
+                        </div>
+                        <div>
+                            <p>{{ chat.text }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

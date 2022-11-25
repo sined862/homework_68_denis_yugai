@@ -1,0 +1,23 @@
+﻿{% extends 'applicant/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="row block">
+    <div class="col-lg-12 mx-auto mb-5">
+        <h2 class="text-start my-5 ms-5">Отклики</h2>
+            {% for response in responses.responses.all %}
+            <div class="card text-center mb-3">
+                <div class="card-body">        
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 block">
+                        <div><h5 class="card-title text-start ms-2">{{ response.job.title }}</h5></div>
+                        <div><p class="card-text">Прикрепленное резюме: {{ response.resume }}</p></div>
+                        <div><p><a href="{% url 'response_detail_applicant' response.pk %}" class="btn btn-primary">Подробнее</a></p></div>
+                    </div> 
+                </div>
+                </a>
+            </div>
+            {% endfor %}
+    </div>
+</div>
+{% endblock %}

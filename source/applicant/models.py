@@ -132,3 +132,46 @@ class Education(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+class Response(models.Model):
+    job = models.ForeignKey(
+        verbose_name='Вакансия',
+        to='employer.Job',
+        related_name='responses',
+        on_delete=models.CASCADE
+    )
+    author = models.ForeignKey(
+        verbose_name='Соискатель',
+        to='accounts.Account',
+        related_name='responses',
+        on_delete=models.CASCADE
+    )
+    resume = models.ForeignKey(
+        verbose_name='Резюме соискателя',
+        to='applicant.Resume',
+        related_name='responses',
+        on_delete=models.CASCADE
+    )
+
+
+class Chat(models.Model):
+    response = models.ForeignKey(
+        verbose_name='Отклик',
+        to='applicant.Response',
+        related_name='chats',
+        on_delete=models.CASCADE
+    )
+    author = models.ForeignKey(
+        verbose_name='Пользователь',
+        to='accounts.Account',
+        related_name='chats',
+        on_delete=models.CASCADE
+    )
+    text = models.TextField(
+        verbose_name='Текст сообщения',
+        max_length=2000,
+        null=False,
+        blank=False
+    )

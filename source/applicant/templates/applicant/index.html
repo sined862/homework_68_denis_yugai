@@ -4,18 +4,18 @@
 
 {% block content %}
 <div class="row block">
-    <div class="col-lg-11 mx-auto mb-5">
+    <div class="col-lg-12 mx-auto mb-5">
         {% if is_resume %}
-        <h2 class="text-start my-5">Все вакансии</h2>
+        <h2 class="text-start my-5 ms-5">Все вакансии</h2>
             {% for job in jobs %}
             <div class="card text-center mb-3">
                 <div class="card-body">        
                     <div class="row row-cols-1 row-cols-md-5 row-cols-lg-5 block">
                         <div><h5 class="card-title text-start ms-2">{{ job.title }}</h5></div>
                         <div><p class="card-text">Дата обновления: {{ job.updated_at }}</p></div>
-                        <div>З/П: {{ job.salary }}</div>
-                        <div>{{ job.author }}</div>
-                        <div>Подробнее</div>
+                        <div><p>З/П: {{ job.salary }}</p></div>
+                        <div><p><a href="{% url 'employer_detail' job.author.pk %}">{{ job.author }}<a></a></p></div>
+                        <div><p><a href="{% url 'job_detail_response' job.pk %}" class="btn btn-primary">Подробнее</a></p></div>
                     </div> 
                 </div>
                 </a>

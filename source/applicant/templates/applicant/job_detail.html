@@ -1,0 +1,56 @@
+﻿{% extends 'applicant/base.html' %}
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+<div class="block">
+    <h2 class="text-center pt-5">Вакансия "{{ job.title }}"</h2>
+    <div class="row mt-5 pb-5">
+        <div class="col-lg-10 mx-auto">   
+                <div class="text-start ps-5">          
+                    <p><strong>Заработная плата: </strong>{{ job.salary }}</p> 
+                    <p><strong>Требуемый опыт работы:</strong> {{ job.experiences }}</p>
+                    <p><strong>Описание:</strong></p>
+                    <p>{{ job.description|linebreaks }}</p>
+                    <p>
+                        <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Откликнуться
+                        </button>
+                    </p>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Отклик на вакансию "{{ job.title }}"</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <p>Выберете резюме которое вы хотите прикрепить:</p>
+                <select name="resume" id="" class="form-select">
+                    {% for resume in resumes %}
+                        <option value="{{ resume.pk }}">{{ resume.title }}</option>
+                    {% endfor %}
+                </select>
+                <p class="pt-4">Сообщение работадателю:</p>
+                {{ chat.text }}
+            </div>
+            <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Отправить</button>
+                    <a href="" type="button" class="btn btn-primary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#id_text').addClass('form-control')
+</script>
+{% endblock %}

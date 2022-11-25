@@ -1,5 +1,5 @@
 ﻿from django import forms
-from applicant.models import Resume, WorkExperience, Education
+from applicant.models import Resume, WorkExperience, Education, Chat, Response
 from django.forms import modelformset_factory
 
 work_experience_formset = modelformset_factory(
@@ -24,3 +24,14 @@ class WorkForm(forms.ModelForm):
     class Meta:
         model = WorkExperience
         fields = ('begin_date', 'end_date', 'position', 'organization', 'responsibility')
+
+
+class ChatForm(forms.ModelForm):
+    class Meta:
+        model = Chat
+        fields = ('text',)
+
+class ResponseForm(forms.ModelForm):
+    class Meta:
+        model = Response
+        fields = '__all__'

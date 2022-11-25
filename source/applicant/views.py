@@ -4,17 +4,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, View, DeleteView, UpdateView, CreateView, ListView, TemplateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import PasswordChangeView
-from applicant.models import Resume, WorkExperience, Education
-from applicant.forms import work_experience_formset, ResumeForm, education_formset, WorkForm
+from applicant.models import Resume, WorkExperience, Education, Response, Chat
+from applicant.forms import work_experience_formset, ResumeForm, education_formset, ChatForm, ResponseForm
 from accounts.models import Account
 from employer.models import Job
-
-# def index(request):
-#     return render(request, 'applicant/index.html')
-
-
-class ApplicantIndexView(TemplateView):
-    template_name = 'applicant/index.html'
 
 
 
@@ -113,3 +106,56 @@ class IndexApplicantView(ListView):
         else:
             context['is_resume'] = False
         return context
+
+
+class EmployerDetailView(DetailView):
+    template_name = 'applicant/employer_detail.html'
+    model = get_user_model()
+    context_object_name = 'user_obj'
+
+
+class JobDetailView(DetailView):
+    template_name = 'applicant/job_detail.html'
+    model = Job
+    context_object_name = 'job'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        resumes = Resume.objects.filter(author=self.request.user.pk)
+        chat_form = ChatForm
+        context['resumes'] = resumes
+        context['chat'] = chat_form
+        return context
+
+    def post(self, *args, **kwargs):
+        print(self.request.POST)
+        resume = get_object_or_404(Resume, pk=self.request.POST.get('resume'))
+        job = get_object_or_404(Job, pk=kwargs['pk'])
+        author = get_object_or_404(Account, pk=self.request.user.id)
+        text_form = ChatForm(self.request.POST)
+        if text_form.is_valid():
+            response = Response.objects.create(author=author, job=job, resume=resume)
+            response.save()
+            text = text_form.save(commit=False)
+            text.author = author
+            text.response = Response.objects.last()
+            text.save()
+            return redirect('index_applicant')
+        else:
+            return redirect('job_detal', pk=kwargs['pk'])
+
+
+class ResponsesView(ListView):
+    template_name = 'applicant/responses.html'
+    context_object_name = 'responses'
+    model = Account
+
+    def get_queryset(self):
+        return Account.objects.get(pk=self.request.user.pk)
+
+
+class ResponseApplicantDetailView(DetailView):
+    template_name = 'applicant/response_detail.html'
+    model = Response
+    context_object_name = 'response'
+    

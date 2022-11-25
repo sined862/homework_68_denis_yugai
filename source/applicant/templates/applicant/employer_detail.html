@@ -1,0 +1,30 @@
+﻿{% extends 'applicant/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 block">
+    <div class="text-center my-5">
+        {% if user_obj.avatar %}
+        <p><img class="avatar" src="{{ user_obj.avatar.url }}" alt="photo"></p>
+        {% else %}
+        <p><img class="avatar" src="{% static 'applicant/img/no-photo.png' %}" alt="photo"></p>
+        {% endif %}
+        <p><strong>{{ user_obj.username }}</strong></p>
+    </div>
+    <div class="text-left my-5">
+        <p><strong class="me-3">Название организации:</strong>{{ user_obj.first_name }}</p>
+        <p><strong class="me-3">Номер телефона:</strong>{{ user_obj.phone }}</p>
+        <p><strong class="me-3">Адрес электронной почты:</strong>{{ user_obj.email }}</p>
+        <p><strong class="me-3">Telegram:</strong>{{ user_obj.telegram }}</p>
+        {% if user_obj.telegram %}
+        <p><strong class="me-3">Facebook:</strong>{{ user_obj.facebook }}</p>
+        {% endif %}
+        {% if user_obj.telegram %}
+        <p><strong class="me-3">Linkedin:</strong>{{ user_obj.linkedin }}</p>
+        {% endif %}
+    </div>
+</div>
+
+<script src="{% static 'applicant/js/profile_update.js' %}"></script>
+{% endblock %}
